@@ -13,31 +13,29 @@ import java.util.ArrayList;
  * @author eduar
  */
 public class Minimos_cuadrados {
-public double X,Y;
-ArrayList<Double> getX = new ArrayList<Double>();
-ArrayList<Double> getY = new ArrayList<Double>();
+public static double X,Y;
+public static ArrayList<Double> getX = new ArrayList<Double>();
+public static ArrayList<Double> getY = new ArrayList<Double>();
+public static double m=0,resNum=0,resDen=0;
     public Minimos_cuadrados() {
         
     }
     
-    public void calcula(){
+    public static String calcula(){
         
-        getX.add(1.0);
-        getX.add(2.0);
-        getX.add(3.0);
-        getX.add(4.0);
-        
-        getY.add(1.4);
-        getY.add(1.1);
-        getY.add(0.7);
-        getY.add(0.1);
+        String cadena;
         double suma=0;
         double sumaY=0;
-        
+        boolean flag1=true;
+        double xx=Double.parseDouble(getX.get(0).toString());;
+         boolean flag2=true;
+        double yy=Double.parseDouble(getY.get(0).toString());;
         //obtener X
         for (int i = 0; i <getX.size(); i++) {
             suma+=Double.parseDouble(getX.get(i).toString());
-           
+           if(Double.parseDouble(getX.get(i).toString())==xx){
+               flag1=true;
+           }else flag1=false; //si la bandera es falsa, garantizamos que la recta no sea vertical
         }
         
         double n=getX.size();
@@ -48,7 +46,9 @@ ArrayList<Double> getY = new ArrayList<Double>();
         
         for (int i = 0; i <getY.size(); i++) {
             sumaY+=Double.parseDouble(getY.get(i).toString());
-            
+            if(Double.parseDouble(getY.get(i).toString())==yy){
+               flag2=true;
+           }else flag2=false;
         }
         
         double nY=getY.size();
@@ -59,7 +59,7 @@ ArrayList<Double> getY = new ArrayList<Double>();
         
         //obtener m
         //obtener numerador
-        double m=0,resNum=0,resDen=0;
+        
          for (int i = 0; i <getX.size(); i++) {
             suma+=Double.parseDouble(getX.get(i).toString());
            resNum+=((Double.parseDouble(getX.get(i).toString())*(Y))-(Double.parseDouble(getX.get(i).toString())*(Double.parseDouble(getY.get(i).toString()))));
@@ -83,6 +83,10 @@ ArrayList<Double> getY = new ArrayList<Double>();
          b=Y-m*X;
          System.out.println("b="+b);
          System.out.println("f(x)="+m+"x"+"+"+b);
+         cadena="f(x)="+m+"x"+"+("+b+")";
+         if(flag1)return "Es una recta vertical en x="+xx;
+         if(flag2)return "Es una recta horizontal con y="+yy;
+         return cadena;
     }
     
     public static void main(String[] args) {
